@@ -55,9 +55,8 @@ const budgetOptions = [
 ];
 
 export function ContactForm() {
-  const [state, handleSubmit] = useForm(
-    process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID || ""
-  );
+  const formId = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID || "";
+  const [state, handleSubmit] = useForm(formId || "dummy-form-id");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -69,6 +68,14 @@ export function ContactForm() {
   const handleFormSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormError(null);
+
+    // Check if form ID is available
+    if (!formId || formId === "dummy-form-id") {
+      setFormError(
+        "Form submission is not configured. Please contact us directly."
+      );
+      return;
+    }
 
     const form = e.currentTarget;
     const honeypot = form.querySelector(
