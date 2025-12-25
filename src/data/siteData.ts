@@ -30,36 +30,42 @@ export const stats: StatItem[] = [
 export const services = [
   {
     icon: Wrench,
+    id: "cabinet-making",
     title: "Cabinet Making",
     description: "Custom cabinets designed to perfection",
     color: "from-amber-500 to-orange-600",
   },
   {
     icon: Palette,
+    id: "interior-painting",
     title: "Interior Painting",
     description: "Transform spaces with premium finishes",
     color: "from-purple-500 to-pink-600",
   },
   {
     icon: Zap,
+    id: "electrical-work",
     title: "Electrical Work",
     description: "Safe, reliable electrical solutions",
     color: "from-yellow-500 to-orange-500",
   },
   {
     icon: Droplets,
+    id: "plumbing-services",
     title: "Plumbing Services",
     description: "Expert plumbing repairs and installations",
     color: "from-blue-500 to-cyan-600",
   },
   {
     icon: Shield,
+    id: "general-repairs",
     title: "General Repairs",
     description: "Comprehensive home maintenance",
     color: "from-green-500 to-emerald-600",
   },
   {
     icon: Award,
+    id: "renovations",
     title: "Renovations",
     description: "Complete home transformations",
     color: "from-indigo-500 to-purple-600",
@@ -68,6 +74,7 @@ export const services = [
 
 export const features: Feature[] = [
   {
+    id: "quality-guaranteed",
     title: "Quality Guaranteed",
     description:
       "Every project is backed by our commitment to excellence and attention to detail.",
@@ -75,6 +82,7 @@ export const features: Feature[] = [
     color: "from-yellow-500/70 to-yellow-500",
   },
   {
+    id: "on-time-delivery",
     title: "On-Time Delivery",
     description:
       "We respect your schedule and complete projects within the agreed timeframe.",
@@ -82,6 +90,7 @@ export const features: Feature[] = [
     color: "from-yellow-500/70 to-yellow-500",
   },
   {
+    id: "expert-support",
     title: "Expert Support",
     description:
       "Our experienced team provides guidance and support throughout your project.",

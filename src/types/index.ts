@@ -1,7 +1,7 @@
 import { CheckCircle, Clock, Headset } from "lucide-react";
 
 export interface Service {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   icon?: string;
@@ -53,10 +53,12 @@ export interface Feature {
   description: string;
   icon: React.ComponentType<{ className?: string }>;
   color: string;
+  id: string;
 }
 
 export const features: Feature[] = [
   {
+    id: "quality-quaranteed",
     title: "Quality Guaranteed",
     description:
       "Every project is backed by our commitment to excellence and attention to detail.",
@@ -64,6 +66,7 @@ export const features: Feature[] = [
     color: "from-yellow-500/70 to-yellow-500",
   },
   {
+    id: "on-time-delivery",
     title: "On-Time Delivery",
     description:
       "We respect your schedule and complete projects within the agreed timeframe.",
@@ -71,6 +74,7 @@ export const features: Feature[] = [
     color: "from-yellow-500/70 to-yellow-500",
   },
   {
+    id: "expert-support",
     title: "Expert Support",
     description:
       "Our experienced team provides guidance and support throughout your project.",

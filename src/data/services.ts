@@ -6,6 +6,7 @@ export type Service = {
   description: string;
   icon: keyof typeof LucideIcons;
   color: string;
+  id?: string;
 };
 
 export const services: Service[] = [

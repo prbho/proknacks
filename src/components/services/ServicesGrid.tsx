@@ -1,6 +1,6 @@
 // components/services/ServicesGrid.tsx
 "use client";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import * as LucideIcons from "lucide-react";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { services } from "@/data/services";
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -19,7 +19,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { y: 40, opacity: 0, scale: 0.95 },
   visible: {
     y: 0,

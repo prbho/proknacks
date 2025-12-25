@@ -2,13 +2,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { services } from "@/data/siteData";
 import { Button } from "@/components/ui/button";
@@ -106,28 +100,6 @@ function ServiceCard({ service, index }: ServiceCardProps) {
             {service.description}
           </p>
         </CardContent>
-
-        <CardFooter className="relative z-10 pt-4">
-          <Link
-            href={`/services/${
-              service.slug || service.title.toLowerCase().replace(/\s+/g, "-")
-            }`}
-            className="group/link w-full"
-          >
-            <motion.div
-              whileHover={{ x: 4 }}
-              className="flex items-center justify-between text-amber-400 font-semibold p-2 -m-2 rounded-lg group-hover/link:bg-amber-400/10 transition-colors"
-            >
-              <span className="text-sm lg:text-base">View details</span>
-              <div className="flex items-center">
-                <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1 mr-2" />
-                <div className="w-6 h-6 flex items-center justify-center rounded-full bg-gradient-to-r from-amber-400/20 to-orange-500/20 group-hover/link:from-amber-400/30 group-hover/link:to-orange-500/30">
-                  <service.icon className="w-3 h-3 text-amber-400" />
-                </div>
-              </div>
-            </motion.div>
-          </Link>
-        </CardFooter>
       </Card>
     </motion.div>
   );

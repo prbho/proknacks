@@ -184,7 +184,7 @@ export function ContactForm() {
             {/* Name Fields */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName" required>
+                <Label htmlFor="firstName" aria-required>
                   First Name
                 </Label>
                 <Input
@@ -196,7 +196,7 @@ export function ContactForm() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName" required>
+                <Label htmlFor="lastName" aria-required>
                   Last Name
                 </Label>
                 <Input
@@ -212,7 +212,7 @@ export function ContactForm() {
             {/* Contact Info */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="email" required>
+                <Label htmlFor="email" aria-required>
                   Email Address
                 </Label>
                 <Input
@@ -231,7 +231,7 @@ export function ContactForm() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone" required>
+                <Label htmlFor="phone" aria-required>
                   Phone Number
                 </Label>
                 <Input
@@ -332,7 +332,7 @@ export function ContactForm() {
 
             {/* Project Details */}
             <div className="space-y-2">
-              <Label htmlFor="message" required>
+              <Label htmlFor="message" aria-required>
                 Project Details
               </Label>
               <Textarea

@@ -1,9 +1,7 @@
 // app/services/page.tsx
 import { ServicesGrid } from "@/components/services/ServicesGrid";
 import { ServicesHero } from "@/components/services/ServicesHero";
-import { PricingSection } from "@/components/services/PricingSection";
 import { ServiceFAQ } from "@/components/services/ServiceFAQ";
-import { CTASection } from "@/components/CTASection";
 
 export default function ServicesPage() {
   return (
