@@ -1,7 +1,6 @@
 // app/contact/page.tsx
 
 import { Metadata } from "next";
-import { MapSection } from "@/components/contact/MapSection";
 import { ContactHero } from "@/components/contact/ContactHero";
 import { ContactInfo } from "@/components/contact/ContactInfo";
 import { ContactForm } from "@/components/contact/ContactForm";
@@ -66,24 +65,12 @@ export default function ContactPage() {
   return (
     <>
       <main className="min-h-screen">
-        {/* Background Pattern */}
-        <div
-          className="fixed inset-0 opacity-5 z-0"
-          style={{
-            backgroundImage: `
-              linear-gradient(45deg, #fbbf24 1px, transparent 1px),
-              linear-gradient(-45deg, #fbbf24 1px, transparent 1px)
-            `,
-            backgroundSize: "60px 60px",
-          }}
-        />
-
         <div className="relative z-10">
           {/* Hero Section */}
           <ContactHero />
 
           {/* Contact Info & Form Grid */}
-          <section className="py-20 lg:py-32 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+          <section className="py-20 lg:py-32 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
                 {/* Contact Information */}
@@ -98,9 +85,6 @@ export default function ContactPage() {
               </div>
             </div>
           </section>
-
-          {/* Map Section */}
-          <MapSection />
         </div>
       </main>
     </>

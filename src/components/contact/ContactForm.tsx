@@ -155,7 +155,8 @@ export function ContactForm() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="bg-gradient-to-br from-gray-900/60 to-gray-800/40 backdrop-blur-sm border border-amber-400/20 rounded-2xl p-6 lg:p-8 shadow-2xl"
+        id="form"
+        className="bg-slate-900 border border-amber-400/20 rounded-2xl p-6 lg:p-8 shadow-2xl"
       >
         <div className="space-y-6">
           {/* Form Header */}

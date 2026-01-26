@@ -28,7 +28,8 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn("dark", manrope.variable, lora.variable)}
-      suppressHydrationWarning>
+      suppressHydrationWarning
+    >
       <head>
         {/* Your structured data script is perfect here */}
         <script
@@ -54,10 +55,11 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased bg-gray-950 text-amber-50/80">
+      <body className="antialiased text-amber-50/80">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-[999] focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-amber-40focustext-gray-900 focus:rounded-lg">
+          className="sr-only focus:not-sr-only focus:absolute focus:z-[999] focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-amber-40focustext-gray-900 focus:rounded-lg"
+        >
           Skip to main content
         </a>
 

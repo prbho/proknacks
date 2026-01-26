@@ -4,7 +4,15 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowRight, Phone } from "lucide-react";
+import {
+  Menu,
+  X,
+  ArrowRight,
+  Phone,
+  Home,
+  Hammer,
+  MessageCircle,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "./ui/button";
 import { SITE_CONFIG } from "@/lib/constants";
@@ -13,7 +21,7 @@ import { cn } from "@/lib/utils";
 interface NavigationItem {
   name: string;
   href: string;
-  isButton?: boolean;
+  description?: string;
 }
 
 export function Header() {
@@ -25,7 +33,7 @@ export function Header() {
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -60,49 +68,31 @@ export function Header() {
   }, [isMenuOpen]);
 
   const navigation: NavigationItem[] = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Contact", href: "/contact" },
+    {
+      name: "Home",
+      href: "/",
+      description: "Your journey starts here",
+    },
+    {
+      name: "About",
+      href: "/about",
+      description: "Our story & values",
+    },
+    {
+      name: "Services",
+      href: "/services",
+      description: "Our home improvement expertise",
+    },
+
+    {
+      name: "Contact",
+      href: "/contact",
+      description: "Start your project",
+    },
   ];
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
-
-  // const mobileMenuVariants = {
-  //   closed: {
-  //     opacity: 0,
-  //     y: -20,
-  //     transition: {
-  //       duration: 0.3,
-  //       ease: "easeInOut",
-  //       when: "afterChildren",
-  //       staggerChildren: 0.05,
-  //       staggerDirection: -1,
-  //     },
-  //   },
-  //   open: {
-  //     opacity: 1,
-  //     y: 0,
-  //     transition: {
-  //       duration: 0.4,
-  //       ease: "easeOut",
-  //       when: "beforeChildren",
-  //       staggerChildren: 0.07,
-  //       delayChildren: 0.1,
-  //     },
-  //   },
-  // };
-
-  const mobileNavItemVariants = {
-    closed: { y: 10, opacity: 0 },
-    open: { y: 0, opacity: 1 },
-  };
-
-  const containerVariants = {
-    closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
-    open: { transition: { staggerChildren: 0.07, delayChildren: 0.2 } },
-  };
 
   return (
     <>
@@ -110,31 +100,36 @@ export function Header() {
         className={cn(
           "fixed w-full z-50 transition-all duration-300",
           isScrolled
-            ? "bg-gray-950/95 backdrop-blur-lg border-b border-amber-400/10 shadow-xl"
-            : "bg-gradient-to-b from-gray-950/90 to-transparent"
+            ? "bg-white/95 backdrop-blur-lg border-b border-amber-100 shadow-lg"
+            : "bg-white/90 backdrop-blur-sm"
         )}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
-            {/* Logo */}
+            {/* Logo with tagline */}
             <Link
               href="/"
-              className="flex items-center group flex-shrink-0"
+              className="flex items-center gap-3 group flex-shrink-0"
               aria-label="Home"
             >
-              <div className="relative w-8 h-8 md:w-10 md:h-10 mr-2 md:mr-3">
+              <div className="relative w-10 h-10">
                 <Image
                   src="/logo.png"
-                  alt={`${SITE_CONFIG.name} Logo`}
+                  alt={`${SITE_CONFIG.name} Logo - Transforming houses into homes`}
                   fill
                   className="object-contain transition-transform duration-300 group-hover:scale-110"
                   priority
-                  sizes="(max-width: 768px) 32px, 40px"
+                  sizes="(max-width: 768px) 40px, 40px"
                 />
               </div>
-              <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent whitespace-nowrap">
-                {SITE_CONFIG.name}
-              </span>
+              <div className="flex flex-col">
+                <span className="text-xl font-bold text-slate-900 leading-tight">
+                  ProKnacks
+                </span>
+                <span className="text-xs text-slate-600 hidden sm:block">
+                  Transforming houses into homes
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
@@ -144,23 +139,21 @@ export function Header() {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "relative px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200",
+                    "relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 group",
                     isActive(item.href)
-                      ? "text-white"
-                      : "text-amber-50/80 hover:text-white hover:bg-white/5"
+                      ? "text-amber-600"
+                      : "text-slate-700 hover:text-amber-600"
                   )}
                 >
-                  <span className="relative z-10">{item.name}</span>
+                  <span className="relative z-10 flex items-center gap-2">
+                    {item.name}
+                    {isActive(item.href) && (
+                      <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                    )}
+                  </span>
+                  <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-amber-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
                   {isActive(item.href) && (
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-orange-500/10 border border-amber-400/20 rounded-lg"
-                      layoutId="active-nav-bg"
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 30,
-                      }}
-                    />
+                    <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-amber-500" />
                   )}
                 </Link>
               ))}
@@ -168,28 +161,30 @@ export function Header() {
 
             {/* Desktop CTA & Contact */}
             <div className="hidden lg:flex items-center gap-3">
-              {/* Phone link - visible on desktop */}
+              {/* Phone link */}
               <a
                 href={`tel:${SITE_CONFIG.phone}`}
-                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors group"
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 hover:text-amber-600 transition-colors group"
                 aria-label="Call us"
               >
-                <div className="w-8 h-8 rounded-full bg-gradient-to-r from-amber-400/10 to-orange-500/10 flex items-center justify-center group-hover:from-amber-400/20 group-hover:to-orange-500/20 transition-colors">
-                  <Phone className="w-4 h-4" />
+                <div className="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center group-hover:bg-amber-100 transition-colors">
+                  <Phone className="w-4 h-4 text-amber-600" />
                 </div>
-                <span className="hidden xl:inline text-amber-50/80">
-                  {SITE_CONFIG.phone}
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-xs text-slate-500">Call us</span>
+                  <span className="font-semibold text-slate-900">
+                    {SITE_CONFIG.phone}
+                  </span>
+                </div>
               </a>
 
               <Button
                 asChild
-                size="default"
-                className="bg-gradient-to-r from-amber-400 to-orange-500 text-gray-900 font-bold hover:from-amber-500 hover:to-orange-600 hover:scale-105 transition-all duration-300"
+                className="px-6 py-3 bg-amber-500 text-white font-semibold hover:bg-amber-600 hover:shadow-lg hover:shadow-amber-500/25 transition-all duration-300"
               >
-                <Link href="/contact">
-                  Get Quote
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                <Link href="/contact" className="flex items-center gap-2">
+                  <MessageCircle className="w-4 h-4" />
+                  Free Consultation
                 </Link>
               </Button>
             </div>
@@ -197,7 +192,7 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-amber-50 hover:bg-white/10 transition-colors flex-shrink-0"
+              className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-amber-50 transition-colors flex-shrink-0"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
             >
@@ -221,7 +216,7 @@ export function Header() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMenuOpen(false)}
-              className="fixed inset-0 bg-gray-950/95 backdrop-blur-lg z-40 lg:hidden"
+              className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 lg:hidden"
             />
 
             {/* Menu Panel */}
@@ -230,64 +225,79 @@ export function Header() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: "100%" }}
               transition={{ type: "tween", duration: 0.3 }}
-              className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-gradient-to-b from-gray-900 to-gray-950 border-l border-amber-400/10 z-50 lg:hidden overflow-y-auto"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white z-50 lg:hidden overflow-y-auto shadow-2xl"
             >
               <div className="h-full flex flex-col">
                 {/* Menu Header */}
-                <div className="p-6 border-b border-amber-400/10">
+                <div className="p-6 border-b border-slate-100">
                   <div className="flex items-center justify-between mb-6">
                     <Link
                       href="/"
-                      className="flex items-center group"
+                      className="flex items-center gap-3 group"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <div className="relative w-10 h-10 mr-3">
+                      <div className="relative w-10 h-10">
                         <Image
                           src="/logo.png"
-                          alt={`${SITE_CONFIG.name} Logo`}
+                          alt="ProKnacks Logo"
                           fill
                           className="object-contain"
                           sizes="40px"
                         />
                       </div>
-                      <span className="text-xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-                        {SITE_CONFIG.name}
-                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-lg font-bold text-slate-900">
+                          ProKnacks
+                        </span>
+                        <span className="text-xs text-slate-600">
+                          Home transformation experts
+                        </span>
+                      </div>
                     </Link>
                     <button
                       onClick={() => setIsMenuOpen(false)}
-                      className="p-2 rounded-lg text-amber-50 hover:bg-white/10 transition-colors"
+                      className="p-2 rounded-lg text-slate-700 hover:bg-amber-50 transition-colors"
                       aria-label="Close menu"
                     >
                       <X className="w-6 h-6" />
                     </button>
                   </div>
 
+                  {/* Trust Badge */}
+                  <div className="inline-flex items-center gap-2 px-3 py-2 bg-amber-50 rounded-lg mb-4">
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-sm font-medium text-slate-900">
+                      Licensed & Insured
+                    </span>
+                  </div>
+
                   {/* Contact Info */}
                   <div className="space-y-3">
                     <a
                       href={`tel:${SITE_CONFIG.phone}`}
-                      className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-amber-400/10 to-orange-500/10 border border-amber-400/20 hover:border-amber-400/30 transition-all"
+                      className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-amber-50 transition-all group"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-amber-400/15 to-orange-500/15 flex items-center justify-center">
-                        <Phone className="w-5 h-5 text-amber-400" />
+                      <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center group-hover:bg-amber-200">
+                        <Phone className="w-5 h-5 text-amber-600" />
                       </div>
                       <div>
-                        <div className="text-xs text-amber-50/60">Call us</div>
-                        <div className="text-base font-semibold text-amber-50">
+                        <div className="text-xs text-slate-600">
+                          Call us now
+                        </div>
+                        <div className="text-base font-semibold text-slate-900">
                           {SITE_CONFIG.phone}
                         </div>
                       </div>
                     </a>
                     <a
                       href={`mailto:${SITE_CONFIG.email}`}
-                      className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-amber-400/10 to-orange-500/10 border border-amber-400/20 hover:border-amber-400/30 transition-all"
+                      className="flex items-center gap-3 p-3 rounded-lg bg-slate-50 hover:bg-amber-50 transition-all group"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-amber-400/15 to-orange-500/15 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center group-hover:bg-amber-200">
                         <svg
-                          className="w-5 h-5 text-amber-400"
+                          className="w-5 h-5 text-amber-600"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -301,8 +311,8 @@ export function Header() {
                         </svg>
                       </div>
                       <div>
-                        <div className="text-xs text-amber-50/60">Email us</div>
-                        <div className="text-sm font-semibold text-amber-50 truncate">
+                        <div className="text-xs text-slate-600">Email us</div>
+                        <div className="text-sm font-semibold text-slate-900 truncate">
                           {SITE_CONFIG.email}
                         </div>
                       </div>
@@ -312,63 +322,116 @@ export function Header() {
 
                 {/* Navigation Links */}
                 <nav className="flex-1 p-6">
-                  <motion.div
-                    variants={containerVariants}
-                    initial="closed"
-                    animate="open"
-                    exit="closed"
-                    className="space-y-1"
-                  >
+                  <div className="space-y-1">
                     {navigation.map((item) => (
-                      <motion.div
+                      <Link
                         key={item.name}
-                        variants={mobileNavItemVariants}
+                        href={item.href}
+                        className={cn(
+                          "flex items-start gap-4 px-4 py-4 rounded-xl transition-all group",
+                          isActive(item.href)
+                            ? "bg-amber-50 text-amber-700"
+                            : "hover:bg-slate-50 text-slate-700 hover:text-amber-600"
+                        )}
+                        onClick={() => setIsMenuOpen(false)}
                       >
-                        <Link
-                          href={item.href}
+                        <div
                           className={cn(
-                            "flex items-center justify-between px-4 py-4 text-base font-medium rounded-lg transition-all",
+                            "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
                             isActive(item.href)
-                              ? "text-white bg-gradient-to-r from-amber-400/10 to-orange-500/10 border border-amber-400/20"
-                              : "text-amber-50/80 hover:text-white hover:bg-white/5"
+                              ? "bg-amber-100"
+                              : "bg-slate-100 group-hover:bg-amber-100"
                           )}
-                          onClick={() => setIsMenuOpen(false)}
                         >
-                          <span>{item.name}</span>
-                          {isActive(item.href) && (
-                            <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                          {item.name === "Home" && <Home className="w-5 h-5" />}
+                          {item.name === "Services" && (
+                            <Hammer className="w-5 h-5" />
                           )}
-                        </Link>
-                      </motion.div>
+                          {item.name === "Projects" && (
+                            <svg
+                              className="w-5 h-5"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                              />
+                            </svg>
+                          )}
+                          {item.name === "About" && (
+                            <svg
+                              className="w-5 h-5"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                              />
+                            </svg>
+                          )}
+                          {item.name === "Contact" && (
+                            <MessageCircle className="w-5 h-5" />
+                          )}
+                        </div>
+                        <div>
+                          <div className="font-semibold">{item.name}</div>
+                          {item.description && (
+                            <div className="text-sm text-slate-500 mt-1">
+                              {item.description}
+                            </div>
+                          )}
+                        </div>
+                        {isActive(item.href) && (
+                          <div className="ml-auto w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                        )}
+                      </Link>
                     ))}
-                  </motion.div>
+                  </div>
                 </nav>
 
                 {/* Mobile CTA */}
-                <div className="p-6 border-t border-amber-400/10">
+                <div className="p-6 border-t border-slate-100">
                   <Button
                     asChild
-                    className="w-full py-6 text-base font-bold bg-gradient-to-r from-amber-400 to-orange-500 text-gray-900 hover:from-amber-500 hover:to-orange-600 transition-all duration-300"
+                    className="w-full py-4 text-base font-semibold bg-amber-500 text-white hover:bg-amber-600 transition-all duration-300 mb-4"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <Link href="/contact">
-                      Get Free Quote
-                      <ArrowRight className="w-5 h-5 ml-2" />
+                    <Link
+                      href="/contact"
+                      className="flex items-center justify-center gap-2"
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      Start Your Project
+                      <ArrowRight className="w-4 h-4 ml-1" />
                     </Link>
                   </Button>
 
+                  <p className="text-center text-sm text-slate-600">
+                    Free design consultation • No-obligation quote
+                  </p>
+
                   {/* Social links */}
                   {SITE_CONFIG.socials && SITE_CONFIG.socials.length > 0 && (
-                    <div className="mt-6 pt-6 border-t border-amber-400/10">
-                      <p className="text-sm text-amber-50/60 mb-3">Follow us</p>
-                      <div className="flex gap-2">
+                    <div className="mt-6 pt-6 border-t border-slate-200">
+                      <p className="text-sm text-slate-600 mb-3 text-center">
+                        Follow our work
+                      </p>
+                      <div className="flex justify-center gap-4">
                         {SITE_CONFIG.socials.map((social) => (
                           <a
                             key={social.name}
                             href={social.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 text-amber-50/60 hover:text-amber-400 hover:bg-amber-400/10 rounded-lg transition-colors"
+                            className="p-2 text-slate-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
                             aria-label={`Follow on ${social.name}`}
                             onClick={() => setIsMenuOpen(false)}
                           >
@@ -390,13 +453,13 @@ export function Header() {
                                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                               </svg>
                             )}
-                            {social.name.toLowerCase() === "linkedin" && (
+                            {social.name.toLowerCase() === "houzz" && (
                               <svg
                                 className="w-5 h-5"
                                 fill="currentColor"
                                 viewBox="0 0 24 24"
                               >
-                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.5C6.201 22.5 1.5 17.799 1.5 12S6.201 1.5 12 1.5 22.5 6.201 22.5 12 17.799 22.5 12 22.5zm-3.75-7.5h2.25V9h-2.25v6zm4.5 0h2.25V9h-2.25v6z" />
                               </svg>
                             )}
                           </a>
@@ -411,24 +474,35 @@ export function Header() {
         )}
       </AnimatePresence>
 
-      {/* Mobile sticky CTA (only shows when scrolled) */}
+      {/* Mobile sticky CTA */}
       {isMobile && isScrolled && !isMenuOpen && (
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-6 right-6 z-40 lg:hidden"
+          className="fixed bottom-6 left-6 right-6 z-40 lg:hidden"
         >
-          <Button
-            asChild
-            size="lg"
-            className="rounded-full shadow-2xl bg-gradient-to-r from-amber-400 to-orange-500 text-gray-900 font-bold hover:from-amber-500 hover:to-orange-600"
-          >
-            <Link href="/contact" className="flex items-center gap-2">
+          <div className="flex gap-2">
+            <a
+              href={`tel:${SITE_CONFIG.phone}`}
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-white text-slate-900 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+            >
               <Phone className="w-5 h-5" />
-              <span className="hidden sm:inline">Call Now</span>
-            </Link>
-          </Button>
+              <span>Call Now</span>
+            </a>
+            <Button
+              asChild
+              className="flex-1 py-3 bg-amber-500 text-white font-semibold hover:bg-amber-600 shadow-lg hover:shadow-xl"
+            >
+              <Link
+                href="/contact"
+                className="flex items-center justify-center gap-2"
+              >
+                <MessageCircle className="w-5 h-5" />
+                <span>Get Quote</span>
+              </Link>
+            </Button>
+          </div>
         </motion.div>
       )}
     </>

@@ -63,7 +63,7 @@ export function ContactInfo() {
                 rel="noopener noreferrer"
                 className="group block"
               >
-                <Card className="bg-gradient-to-br from-gray-900/60 to-gray-800/40 backdrop-blur-sm border border-amber-400/15 hover:border-amber-400/30 transition-all duration-300">
+                <Card className="bg-slate-900 border border-amber-400/15 hover:border-amber-400/30 transition-all duration-300">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400/15 to-orange-500/15 flex items-center justify-center group-hover:from-amber-400/25 group-hover:to-orange-500/25 transition-all">

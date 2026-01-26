@@ -1,212 +1,117 @@
-// components/CTASection.tsx
+// components/CTASection.tsx - Clear transformation-focused CTA
 "use client";
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Phone, Mail, ArrowRight, Calendar, MessageSquare } from "lucide-react";
-import { SITE_CONFIG } from "@/lib/constants";
-import Link from "next/link";
+import { Phone, Mail, Calendar, Star } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
 
 export function CTASection() {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
   return (
-    <section
-      className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950"
-      aria-labelledby="cta-heading"
-    >
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-amber-400/5 to-transparent blur-3xl rounded-full" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-orange-500/5 to-transparent blur-3xl rounded-full" />
-
-        {/* Geometric pattern overlay */}
+    <section className="relative py-20 lg:py-32 overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
         <div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] opacity-5"
+          className="absolute inset-0"
           style={{
-            backgroundImage: `
-              linear-gradient(45deg, transparent 45%, rgba(251, 191, 36, 0.3) 50%, transparent 55%),
-              linear-gradient(-45deg, transparent 45%, rgba(251, 191, 36, 0.3) 50%, transparent 55%)
-            `,
-            backgroundSize: "40px 40px",
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23f59e0b' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E")`,
+            backgroundSize: "200px",
           }}
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center">
-          {/* Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{
-              duration: 0.8,
-              ease: "easeOut",
-              delay: 0.1,
-            }}
-            className="space-y-8 lg:space-y-10"
-          >
-            {/* Badge */}
-            <span className="inline-block px-5 py-2.5 rounded-full bg-gradient-to-r from-amber-400/10 to-orange-500/10 border border-amber-400/20 text-amber-400 text-sm font-semibold">
-              Get Started
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          {/* Icon */}
+          <div className="relative mx-auto items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 mb-8">
+            <Image
+              src="/logo.png"
+              alt="proknacks"
+              fill
+              className="object-contain transition-transform duration-300 group-hover:scale-110"
+              priority
+              sizes="(max-width: 64px) 64px, 64px"
+            />
+          </div>
+
+          {/* Heading */}
+          <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-6">
+            <span className="block text-white">We Transform Your Spaces</span>
+
+            <span className="block mt-2 text-amber-400">
+              into Beautiful, Functional Environments
             </span>
+          </h2>
 
-            {/* Heading */}
-            <h2
-              id="cta-heading"
-              className="text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight"
+          {/* Description */}
+          <p className="text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto mb-12">
+            Schedule your free, no-obligation design consultation. We&apos;ll
+            discuss your vision, tour your space (in-person or virtually), and
+            provide a detailed proposal.
+          </p>
+
+          {/* Guarantee Badges */}
+          <div className="flex flex-wrap justify-center gap-6 mb-12">
+            {[
+              { icon: Star, text: "Free Design Consultation" },
+              { icon: Star, text: "Detailed Project Estimate" },
+              { icon: Star, text: "No Pressure, Just Expertise" },
+            ].map((badge, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full"
+              >
+                <badge.icon className="w-4 h-4 text-amber-400" />
+                <span className="text-white text-sm font-medium">
+                  {badge.text}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <a
+              href="#consultation"
+              className="inline-flex items-center justify-center px-8 py-4 bg-amber-500 text-slate-900 font-bold rounded-lg hover:bg-amber-600 transition-all duration-300 hover:scale-105 text-lg"
             >
-              <span className="block text-amber-50 mb-2 lg:mb-3">
-                Ready to Transform Your
-              </span>
-              <span className="block bg-gradient-to-r from-amber-400 via-orange-500 to-amber-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-                Vision Into Reality?
-              </span>
-            </h2>
+              <Calendar className="mr-3 w-5 h-5" />
+              Schedule Free Consultation
+            </a>
+            <a
+              href="tel:1-800-PRO-KNACKS"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/20 hover:bg-white/15 transition-all duration-300 text-lg"
+            >
+              <Phone className="mr-3 w-5 h-5" />
+              Call Now: (317) 452-3636
+            </a>
+          </div>
 
-            {/* Description */}
-            <div className="space-y-4">
-              <p className="text-lg lg:text-xl text-amber-50/80 leading-relaxed">
-                Join hundreds of satisfied clients who&apos;ve transformed their
-                spaces with {SITE_CONFIG.name}. Your dream project, brought to
-                life with our expertise and attention to detail.
-              </p>
-              <p className="text-base lg:text-lg text-amber-50/60">
-                From initial consultation to final installation, we guide you
-                through every step with transparency and professionalism.
-              </p>
+          {/* Contact Info */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="text-sm text-gray-400 mb-2">Prefer to email?</div>
+              <a
+                href="mailto:hello@proknacks.com"
+                className="text-xl font-semibold text-white hover:text-amber-300 transition-colors"
+              >
+                <Mail className="inline-block w-5 h-5 mr-2" />
+                hello@proknacks.com
+              </a>
             </div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 pt-2"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <Button
-                asChild
-                size="lg"
-                className="py-7 text-base font-bold bg-gradient-to-r from-amber-400 to-orange-500 text-gray-900 hover:from-amber-500 hover:to-orange-600 hover:shadow-lg hover:shadow-amber-500/25 transition-all duration-300 group"
-              >
-                <Link href="/contact">
-                  <Calendar className="mr-3 w-5 h-5" />
-                  Schedule Consultation
-                  <ArrowRight className="ml-3 w-5 h-5 transition-transform group-hover:translate-x-1.5" />
-                </Link>
-              </Button>
-
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="py-7 text-base font-medium border-amber-400/30 text-amber-400 hover:bg-amber-400/10 hover:border-amber-400/50 transition-all duration-300"
-              >
-                <Link href="/services">
-                  <MessageSquare className="mr-3 w-5 h-5" />
-                  Browse Services
-                </Link>
-              </Button>
-            </motion.div>
-
-            {/* Contact Info */}
-            <motion.div
-              className="pt-8 border-t border-amber-400/10"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              <p className="text-sm text-amber-50/60 mb-4">
-                Prefer to reach out directly? We&apos;re here to help:
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <a
-                  href={`tel:${SITE_CONFIG.phone}`}
-                  className="group flex items-center p-4 rounded-xl bg-gradient-to-r from-gray-900/40 to-gray-800/30 border border-amber-400/10 hover:border-amber-400/30 hover:bg-gray-800/40 transition-all duration-300"
-                >
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-amber-400/15 to-orange-500/15 group-hover:from-amber-400/25 group-hover:to-orange-500/25 mr-4">
-                    <Phone className="w-5 h-5 text-amber-400" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-amber-50/60">Call us at</div>
-                    <div className="text-lg font-semibold text-amber-50 group-hover:text-amber-300 transition-colors">
-                      {SITE_CONFIG.phone}
-                    </div>
-                  </div>
-                </a>
-
-                <a
-                  href={`mailto:${SITE_CONFIG.email}`}
-                  className="group flex items-center p-4 rounded-xl bg-gradient-to-r from-gray-900/40 to-gray-800/30 border border-amber-400/10 hover:border-amber-400/30 hover:bg-gray-800/40 transition-all duration-300"
-                >
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-amber-400/15 to-orange-500/15 group-hover:from-amber-400/25 group-hover:to-orange-500/25 mr-4">
-                    <Mail className="w-5 h-5 text-amber-400" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-amber-50/60">Email us at</div>
-                    <div className="text-lg font-semibold text-amber-50 group-hover:text-amber-300 transition-colors">
-                      {SITE_CONFIG.email}
-                    </div>
-                  </div>
-                </a>
-              </div>
-
-              {/* Response time indicator */}
-              <div className="mt-6 p-3 rounded-lg bg-gradient-to-r from-amber-400/5 to-orange-500/5 border border-amber-400/10">
-                <div className="flex items-center justify-center text-sm text-amber-50/70">
-                  <div className="w-2 h-2 rounded-full bg-amber-400 mr-2 animate-pulse" />
-                  <span>Typically respond within 24 hours</span>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Image Section */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{
-              duration: 1,
-              ease: [0.16, 1, 0.3, 1],
-              delay: 0.2,
-            }}
-            className="relative"
-          >
-            {/* Geometric container */}
-            <div className="relative overflow-hidden rounded-3xl shadow-2xl">
-              {/* Image loading state */}
-              {!imageLoaded && (
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-400/10 to-orange-500/5 animate-pulse rounded-3xl" />
-              )}
-
-              {/* Main image with geometric overlay */}
-              <div className="relative aspect-[4/5] lg:aspect-[3/4]">
-                <Image
-                  src="/images_homes.png"
-                  alt="A beautifully crafted modern home interior with expert woodworking and finishing details"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                  quality={90}
-                  className={cn(
-                    "object-cover transition-opacity duration-700",
-                    imageLoaded ? "opacity-100" : "opacity-0"
-                  )}
-                  onLoad={() => setImageLoaded(true)}
-                  onError={() => setImageLoaded(true)}
-                />
-
-                {/* Decorative overlay */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-amber-400/10 via-transparent to-orange-500/5" />
+            <div className="text-center">
+              <div className="text-sm text-gray-400 mb-2">Service Areas</div>
+              <div className="text-lg font-semibold text-white">
+                Serving All 50 States
               </div>
             </div>
-          </motion.div>
+          </div>
+
+          {/* Final Statement */}
+          <div className="mt-12 pt-8 border-t border-white/10">
+            <p className="text-gray-400 italic">
+              &quot;Your home should be your sanctuary. Let us help you create
+              it.&quot;
+            </p>
+          </div>
         </div>
       </div>
     </section>
