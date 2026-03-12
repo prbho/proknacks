@@ -13,7 +13,8 @@ const contactInfo = [
     content: SITE_CONFIG.phone,
     href: `tel:${SITE_CONFIG.phone}`,
     description: "Available Mon-Sat, 8AM-6PM",
-    action: "Call Now",
+    action: "Call now →",
+    emoji: "📞",
   },
   {
     icon: Mail,
@@ -21,16 +22,19 @@ const contactInfo = [
     content: SITE_CONFIG.email,
     href: `mailto:${SITE_CONFIG.email}`,
     description: "Response within 24 hours",
-    action: "Send Email",
+    action: "Send email →",
+    emoji: "✉️",
   },
   {
     icon: MapPin,
     title: "Visit Us",
-    content: SITE_CONFIG.address,
+    content: "Indianapolis, USA",
     href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
       SITE_CONFIG.address
     )}`,
-    description: "Indianapolis, USA",
+    description: "Come say hi (call first!)",
+    action: "Get directions →",
+    emoji: "📍",
   },
   {
     icon: Clock,
@@ -38,63 +42,60 @@ const contactInfo = [
     content: "Mon - Saturday",
     href: "#",
     description: "8:00 AM - 6:00 PM",
-    action: "Closed Sunday",
+    action: "Closed Sunday (family day)",
+    emoji: "⏰",
   },
 ];
 
 export function ContactInfo() {
   return (
-    <div className="space-y-8">
-      {/* Contact Cards */}
-      <div className="space-y-4">
-        {contactInfo.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+    <div className="space-y-4">
+      {contactInfo.map((item, index) => {
+        const Icon = item.icon;
+        return (
+          <motion.div
+            key={item.title}
+            initial={{ opacity: 0, x: -15 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.08 }}
+          >
+            <a
+              href={item.href}
+              target={item.href !== "#" ? "_blank" : undefined}
+              rel={item.href !== "#" ? "noopener noreferrer" : undefined}
+              className="group block"
             >
-              <a
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block"
-              >
-                <Card className="bg-slate-900 border border-amber-400/15 hover:border-amber-400/30 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400/15 to-orange-500/15 flex items-center justify-center group-hover:from-amber-400/25 group-hover:to-orange-500/25 transition-all">
-                        <Icon className="w-6 h-6 text-amber-400" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex flex-col gap-2 items-start justify-between">
-                          <div>
-                            <h3 className="text-lg font-semibold text-amber-50 group-hover:text-white transition-colors">
-                              {item.title}
-                            </h3>
-                            <p className="mt-1 text-amber-400 font-medium">
-                              {item.content}
-                            </p>
-                            <p className="text-sm text-amber-50/60 mt-1">
-                              {item.description}
-                            </p>
-                          </div>
-                          <span className="text-sm font-medium text-amber-400/70 group-hover:text-amber-400 transition-colors">
-                            {item.action}
-                          </span>
-                        </div>
-                      </div>
+              <Card className="bg-white border border-gray-200 hover:border-amber-300 hover:shadow-md transition-all duration-300">
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center group-hover:bg-amber-100 transition-colors">
+                      <Icon className="w-5 h-5 text-amber-600" />
                     </div>
-                  </CardContent>
-                </Card>
-              </a>
-            </motion.div>
-          );
-        })}
-      </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <h3 className="text-sm font-semibold text-gray-900">
+                          {item.title}
+                        </h3>
+                        <span className="text-xs">{item.emoji}</span>
+                      </div>
+                      <p className="text-sm text-gray-700 font-medium mt-0.5">
+                        {item.content}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {item.description}
+                      </p>
+                      <span className="text-xs text-amber-600 group-hover:text-amber-700 inline-block mt-2">
+                        {item.action}
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </a>
+          </motion.div>
+        );
+      })}
     </div>
   );
 }

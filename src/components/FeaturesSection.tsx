@@ -3,95 +3,138 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Users, Clock, Award, Heart } from "lucide-react";
+import { Clock, Award, Heart, Sparkles, Coffee } from "lucide-react";
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="relative py-20 lg:py-32 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="features"
+      className="relative py-20 lg:py-32 bg-white overflow-hidden"
+    >
+      {/* Playful background elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-40 right-20 w-80 h-80 bg-amber-100/30 rounded-full blur-3xl" />
+        <div className="absolute bottom-40 left-20 w-80 h-80 bg-sky-100/30 rounded-full blur-3xl" />
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Image with overlay text */}
-          <div className="relative">
-            <div className="relative h-[600px] rounded-2xl overflow-hidden">
+          {/* Image with overlay text - made more personal */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <div className="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
               <Image
                 src="/detailed.png"
                 alt="Close-up of exceptional woodwork and craftsmanship"
                 fill
-                className="object-cover"
+                className="object-cover hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/30 to-transparent" />
+
+              {/* Warm message overlay */}
               <div className="absolute bottom-24 left-8 right-8 text-white">
-                <div className="text-2xl font-bold mb-2">
-                  Superior Craftsmanship
+                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-sm mb-4">
+                  <Sparkles className="w-4 h-4" />
+                  <span>Handcrafted with ❤️</span>
                 </div>
-                <p className="text-slate-200">
-                  Every detail matters. That&aposs our promise.
+                <div className="text-3xl font-bold mb-2 leading-tight">
+                  We geek out over
+                  <br />
+                  the little things
+                </div>
+                <p className="text-gray-200 text-lg">
+                  Because that&apos;s where the magic happens.
                 </p>
               </div>
             </div>
 
-            {/* Stats overlay */}
+            {/* Stats overlay - made more friendly */}
             <div className="absolute -bottom-6 left-8 right-8">
               <div className="grid grid-cols-3 gap-4">
                 {[
-                  { value: "98%", label: "Repeat Clients" },
-                  { value: "500+", label: "Projects" },
-                  { value: "15", label: "Years" },
+                  { value: "98%", label: "Would refer us to mom" },
+                  { value: "500+", label: "Homes made happier" },
+                  { value: "15", label: "Years of learning" },
                 ].map((stat, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="bg-white p-4 rounded-xl shadow-lg text-center"
+                    whileHover={{ y: -5 }}
+                    className="bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-lg text-center border border-amber-100"
                   >
-                    <div className="text-2xl font-bold text-slate-900">
+                    <div className="text-2xl font-bold text-gray-900">
                       {stat.value}
                     </div>
-                    <div className="text-sm text-slate-600">{stat.label}</div>
-                  </div>
+                    <div className="text-sm text-gray-600 flex items-center justify-center gap-1">
+                      <span>{stat.label}</span>
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Content */}
-          <div className="space-y-8">
+          {/* Content - more conversational */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
             <div>
-              <h2 className="text-xl lg:text-2xl xl:text-3xl font-bold text-slate-900 mb-6">
-                We Build Homes,
-                <br />
-                Not Just Houses
+              <div className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-4 py-1.5 text-sm font-medium text-amber-700 border border-amber-200 mb-4">
+                <Heart className="w-4 h-4" />
+                <span className="text-amber-600 text-sm font-semibold">
+                  What makes us different
+                </span>
+              </div>
+
+              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-5 leading-tight">
+                We don&apos;t just build spaces —<br />
+                <span className="text-amber-500 relative">
+                  we create feelings
+                  <svg
+                    className="absolute -bottom-2 left-0 w-full"
+                    height="10"
+                    viewBox="0 0 200 10"
+                    fill="none"
+                  >
+                    <path
+                      d="M1 7C41 3 93 2 156 6C179 8 190 8.5 199 7"
+                      stroke="#F59E0B"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
               </h2>
-              <p className="text-lg text-slate-600 leading-relaxed">
-                At ProKnacks, we understand that a home is more than walls and a
-                roof—it&aposs where memories are made, families grow, and life
-                happens.
+
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Sure, we&apos;re good with hammers and blueprints. But what we
+                really do is listen — then turn your &quot;wouldn&apos;t it be
+                nice&quot; into &quot;wow, they actually did it.&quot;
               </p>
             </div>
 
-            {/* Values */}
-            <div className="space-y-6">
+            {/* Values - made more personal and varied */}
+            <div className="space-y-5">
               {[
                 {
-                  icon: Heart,
-                  title: "Home-Centric Approach",
-                  description:
-                    "We focus on creating spaces that feel like home, not just look good.",
-                },
-                {
-                  icon: Users,
-                  title: "Collaborative Partnership",
-                  description:
-                    "You're part of the process from start to finish.",
-                },
-                {
                   icon: Clock,
-                  title: "Respect for Your Time",
+                  title: "Your time matters",
                   description:
-                    "We stick to timelines and keep you informed every step.",
+                    "We stick to timelines because we know you've got a life to live.",
+                  color: "from-emerald-50 to-emerald-100",
                 },
                 {
                   icon: Award,
-                  title: "Uncompromising Quality",
-                  description: "We use premium materials and skilled artisans.",
+                  title: "Quality you can feel",
+                  description:
+                    "Premium materials + skilled hands = stuff that lasts.",
+                  color: "from-amber-50 to-amber-100",
                 },
               ].map((value, index) => (
                 <motion.div
@@ -100,45 +143,36 @@ export function FeaturesSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="flex gap-4"
+                  whileHover={{ x: 5 }}
+                  className="flex gap-4 p-3 rounded-2xl hover:bg-gray-50 transition-colors group"
                 >
-                  <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-amber-50 flex items-center justify-center">
-                    <value.icon className="w-6 h-6 text-amber-600" />
+                  <div
+                    className={`flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br ${value.color} flex items-center justify-center border-2 border-white shadow-md group-hover:scale-110 transition-transform`}
+                  >
+                    <value.icon className="w-7 h-7 text-gray-700" />
                   </div>
                   <div>
-                    <div className="font-bold text-slate-900 mb-1">
-                      {value.title}
+                    <div className="font-bold text-gray-900 mb-1 flex items-center gap-2">
+                      <span>{value.title}</span>
                     </div>
-                    <p className="text-slate-600">{value.description}</p>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                      {value.description}
+                    </p>
                   </div>
                 </motion.div>
               ))}
             </div>
-          </div>
-        </div>
 
-        {/* Callout */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-20 p-8 bg-gradient-to-r from-amber-500 to-amber-600 rounded-2xl text-white text-center"
-        >
-          <h3 className="text-2xl font-bold mb-4">
-            Ready to Transform Your House into a Home?
-          </h3>
-          <p className="text-amber-100 mb-6 max-w-2xl mx-auto">
-            Join thousands of families who&aposve found their perfect home with
-            ProKnacks. Your vision, our craftsmanship—let&aposs create something
-            extraordinary together.
-          </p>
-          <a
-            href="#consultation"
-            className="inline-flex items-center justify-center px-8 py-4 bg-white text-slate-900 font-bold rounded-lg hover:bg-slate-100 transition-all duration-300 hover:scale-105"
-          >
-            Schedule Your Free Design Consultation
-          </a>
-        </motion.div>
+            {/* Added a personal touch */}
+            <div className="pt-4 flex items-center gap-3 text-sm text-gray-500 border-t border-gray-100">
+              <Coffee className="w-4 h-4" />
+              <span>
+                Come by for coffee — we&apos;d love to meet you and talk about
+                your dreams.
+              </span>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

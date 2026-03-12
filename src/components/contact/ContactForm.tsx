@@ -11,6 +11,8 @@ import {
   Loader2,
   Calendar,
   Home,
+  Coffee,
+  Sparkles,
 } from "lucide-react";
 import {
   Dialog,
@@ -35,23 +37,22 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const serviceOptions = [
   { value: "renovation", label: "Home Renovation" },
-  { value: "construction", label: "New Construction" },
   { value: "kitchen", label: "Kitchen Remodeling" },
   { value: "bathroom", label: "Bathroom Remodeling" },
   { value: "custom-furniture", label: "Custom Furniture" },
   { value: "interior-design", label: "Interior Design" },
   { value: "maintenance", label: "Home Maintenance" },
-  { value: "consultation", label: "Design Consultation" },
-  { value: "other", label: "Other Project" },
+  { value: "consultation", label: "Just want advice" },
+  { value: "other", label: "Something else" },
 ];
 
 const budgetOptions = [
-  { value: "under-500k", label: "Under ₦500,000" },
-  { value: "500k-1m", label: "₦500,000 - ₦1,000,000" },
-  { value: "1m-2m", label: "₦1,000,000 - ₦2,000,000" },
-  { value: "2m-5m", label: "₦2,000,000 - ₦5,000,000" },
-  { value: "5m-plus", label: "₦5,000,000+" },
-  { value: "not-sure", label: "Not Sure Yet" },
+  { value: "under-500k", label: "Under $500,000" },
+  { value: "500k-1m", label: "$500,000 - $1,000,000" },
+  { value: "1m-2m", label: "$1,000,000 - $2,000,000" },
+  { value: "2m-5m", label: "$2,000,000 - $5,000,000" },
+  { value: "5m-plus", label: "$5,000,000+" },
+  { value: "not-sure", label: "No clue (that's ok!)" },
 ];
 
 export function ContactForm() {
@@ -69,10 +70,9 @@ export function ContactForm() {
     e.preventDefault();
     setFormError(null);
 
-    // Check if form ID is available
     if (!formId || formId === "dummy-form-id") {
       setFormError(
-        "Form submission is not configured. Please contact us directly."
+        "Form not quite ready. Mind emailing us directly? hello@proknacks.com"
       );
       return;
     }
@@ -83,7 +83,7 @@ export function ContactForm() {
     ) as HTMLInputElement;
 
     if (honeypot?.value) {
-      console.warn("Bot detected via honeypot");
+      console.warn("Bot detected");
       return;
     }
 
@@ -101,31 +101,26 @@ export function ContactForm() {
 
   return (
     <>
-      {/* Success Dialog */}
+      {/* Success Dialog - Warm and friendly */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-md bg-card border-border backdrop-blur-sm">
+        <DialogContent className="sm:max-w-md bg-white">
           <DialogHeader className="text-center space-y-4">
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 200,
-                damping: 15,
-              }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
               className="flex justify-center"
             >
-              <div className="p-3 bg-primary/10 rounded-full">
-                <CheckCircle2 className="h-12 w-12 text-primary" />
+              <div className="p-3 bg-amber-100 rounded-full">
+                <CheckCircle2 className="h-12 w-12 text-amber-600" />
               </div>
             </motion.div>
-            <DialogTitle className="text-2xl font-bold">
-              Message Sent Successfully!
+            <DialogTitle className="text-xl font-bold text-gray-900">
+              Woohoo! Message sent! 🎉
             </DialogTitle>
-            <DialogDescription className="text-muted-foreground">
-              Thank you for contacting ProKnacks! We&apos;ve received your
-              inquiry and will get back to you within 24 hours with detailed
-              information.
+            <DialogDescription className="text-sm text-gray-600">
+              Thanks for reaching out! We&apos;ll get back to you within 24
+              hours (usually faster — we&apos;re excited to chat).
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="flex flex-col sm:flex-row gap-2">
@@ -141,10 +136,10 @@ export function ContactForm() {
                 setDialogOpen(false);
                 window.location.href = "/booking";
               }}
-              className="w-full"
+              className="w-full bg-amber-500 text-gray-900 hover:bg-amber-600"
             >
               <Calendar className="mr-2 w-4 h-4" />
-              Book Consultation
+              Schedule a call
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -152,34 +147,33 @@ export function ContactForm() {
 
       {/* Contact Form */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         id="form"
-        className="bg-slate-900 border border-amber-400/20 rounded-2xl p-6 lg:p-8 shadow-2xl"
+        className="bg-white border border-gray-200 rounded-xl p-6 shadow-lg"
       >
-        <div className="space-y-6">
-          {/* Form Header */}
-          <div className="mb-12">
-            <span className="inline-block px-4 py-2 rounded-full bg-gradient-to-r from-amber-400/10 to-orange-500/10 border border-amber-400/20 text-amber-400 text-sm font-semibold mb-4">
-              Quick Quote or inquiry
-            </span>
-            <h2
-              id="contact-form"
-              className="text-xl lg:text-2xl font-bold text-amber-50 mb-2"
-            >
-              Get Your Free Quote
+        <div className="space-y-5">
+          {/* Form Header - Friendlier */}
+          <div className="mb-6">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 mb-3">
+              <Coffee className="w-3.5 h-3.5 text-amber-600" />
+              <span className="text-xs font-medium text-amber-700">
+                Let&apos;s do this
+              </span>
+            </div>
+            <h2 className="text-lg font-bold text-gray-900 mb-1">
+              Tell us about your dream
             </h2>
-            <p className="text-amber-50/70">
-              Fill out the form below and we&apos;ll get back to you with a
-              personalized quote.
+            <p className="text-xs text-gray-500">
+              No forms longer than necessary. We promise.
             </p>
           </div>
 
-          <form onSubmit={handleFormSubmission} className="space-y-6">
-            {/* Honeypot Field */}
-            <div className="sr-only" aria-hidden="true">
-              <Label htmlFor="_honeypot">Leave this field empty</Label>
+          <form onSubmit={handleFormSubmission} className="space-y-4">
+            {/* Honeypot */}
+            <div className="sr-only">
+              <Label htmlFor="_honeypot">Leave this empty</Label>
               <Input
                 type="text"
                 id="_honeypot"
@@ -190,38 +184,38 @@ export function ContactForm() {
             </div>
 
             {/* Name Fields */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="firstName" aria-required>
-                  First Name
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="firstName" className="text-xs text-gray-700">
+                  First name
                 </Label>
                 <Input
                   id="firstName"
                   name="firstName"
                   required
                   placeholder="John"
-                  className="bg-gray-900/50 border-amber-400/20 text-amber-50 placeholder:text-amber-50/40 focus:border-amber-400"
+                  className="h-9 text-sm border-gray-300 focus:border-amber-400 focus:ring-amber-400"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName" aria-required>
-                  Last Name
+              <div className="space-y-1.5">
+                <Label htmlFor="lastName" className="text-xs text-gray-700">
+                  Last name
                 </Label>
                 <Input
                   id="lastName"
                   name="lastName"
                   required
                   placeholder="Doe"
-                  className="bg-gray-900/50 border-amber-400/20 text-amber-50 placeholder:text-amber-50/40 focus:border-amber-400"
+                  className="h-9 text-sm border-gray-300 focus:border-amber-400 focus:ring-amber-400"
                 />
               </div>
             </div>
 
             {/* Contact Info */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="email" aria-required>
-                  Email Address
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="email" className="text-xs text-gray-700">
+                  Email address
                 </Label>
                 <Input
                   id="email"
@@ -229,48 +223,53 @@ export function ContactForm() {
                   type="email"
                   required
                   placeholder="john@example.com"
-                  className="bg-gray-900/50 border-amber-400/20 text-amber-50 placeholder:text-amber-50/40 focus:border-amber-400"
+                  className="h-9 text-sm border-gray-300 focus:border-amber-400"
                 />
                 <ValidationError
                   prefix="Email"
                   field="email"
                   errors={state.errors}
-                  className="text-destructive text-sm"
+                  className="text-red-500 text-xs"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone" aria-required>
-                  Phone Number
+              <div className="space-y-1.5">
+                <Label htmlFor="phone" className="text-xs text-gray-700">
+                  Phone number
                 </Label>
                 <Input
                   id="phone"
                   name="phone"
                   type="tel"
                   required
-                  placeholder="+1 317-452-3636"
-                  className="bg-gray-900/50 border-amber-400/20 text-amber-50 placeholder:text-amber-50/40 focus:border-amber-400"
+                  placeholder="(317) 452-3636"
+                  className="h-9 text-sm border-gray-300 focus:border-amber-400"
                 />
               </div>
             </div>
 
             {/* Location */}
-            <div className="space-y-2">
-              <Label htmlFor="location">
-                <Home className="inline w-4 h-4 mr-2" />
-                Project Location
+            <div className="space-y-1.5">
+              <Label
+                htmlFor="location"
+                className="text-xs text-gray-700 flex items-center gap-1"
+              >
+                <Home className="w-3.5 h-3.5" />
+                Where&apos;s the project?
               </Label>
               <Input
                 id="location"
                 name="location"
-                placeholder="Enter your city or address"
-                className="bg-gray-900/50 border-amber-400/20 text-amber-50 placeholder:text-amber-50/40 focus:border-amber-400"
+                placeholder="City or address"
+                className="h-9 text-sm border-gray-300 focus:border-amber-400"
               />
             </div>
 
             {/* Service & Budget */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="service">Service Needed</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="service" className="text-xs text-gray-700">
+                  Whatcha need?
+                </Label>
                 <Select
                   name="service"
                   value={formData.service}
@@ -278,20 +277,26 @@ export function ContactForm() {
                     setFormData({ ...formData, service: value })
                   }
                 >
-                  <SelectTrigger className="bg-gray-900/50 border-amber-400/20 text-amber-50">
-                    <SelectValue placeholder="Select a service" />
+                  <SelectTrigger className="h-9 text-sm border-gray-300">
+                    <SelectValue placeholder="Select service" />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-900 border-amber-400/20">
+                  <SelectContent>
                     {serviceOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
+                      <SelectItem
+                        key={option.value}
+                        value={option.value}
+                        className="text-sm"
+                      >
                         {option.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="budget">Estimated Budget</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="budget" className="text-xs text-gray-700">
+                  Budget range
+                </Label>
                 <Select
                   name="budget"
                   value={formData.budget}
@@ -299,12 +304,16 @@ export function ContactForm() {
                     setFormData({ ...formData, budget: value })
                   }
                 >
-                  <SelectTrigger className="bg-gray-900/50 border-amber-400/20 text-amber-50">
-                    <SelectValue placeholder="Select budget range" />
+                  <SelectTrigger className="h-9 text-sm border-gray-300">
+                    <SelectValue placeholder="Select budget" />
                   </SelectTrigger>
-                  <SelectContent className="bg-gray-900 border-amber-400/20">
+                  <SelectContent>
                     {budgetOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
+                      <SelectItem
+                        key={option.value}
+                        value={option.value}
+                        className="text-sm"
+                      >
                         {option.label}
                       </SelectItem>
                     ))}
@@ -313,9 +322,11 @@ export function ContactForm() {
               </div>
             </div>
 
-            {/* Project Timeline */}
-            <div className="space-y-2">
-              <Label htmlFor="timeline">Project Timeline</Label>
+            {/* Timeline */}
+            <div className="space-y-1.5">
+              <Label htmlFor="timeline" className="text-xs text-gray-700">
+                When are you thinking?
+              </Label>
               <Select
                 name="timeline"
                 value={formData.timeline}
@@ -323,52 +334,53 @@ export function ContactForm() {
                   setFormData({ ...formData, timeline: value })
                 }
               >
-                <SelectTrigger className="bg-gray-900/50 border-amber-400/20 text-amber-50">
-                  <SelectValue placeholder="When do you want to start?" />
+                <SelectTrigger className="h-9 text-sm border-gray-300">
+                  <SelectValue placeholder="Select timeline" />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-900 border-amber-400/20">
-                  <SelectItem value="immediately">Immediately</SelectItem>
-                  <SelectItem value="1-month">Within 1 month</SelectItem>
-                  <SelectItem value="3-months">Within 3 months</SelectItem>
-                  <SelectItem value="6-months">Within 6 months</SelectItem>
-                  <SelectItem value="planning">
-                    Just planning/exploring
+                <SelectContent>
+                  <SelectItem value="immediately" className="text-sm">
+                    ASAP! Let&apos;s go!
+                  </SelectItem>
+                  <SelectItem value="1-month" className="text-sm">
+                    Within 1 month
+                  </SelectItem>
+                  <SelectItem value="3-months" className="text-sm">
+                    Within 3 months
+                  </SelectItem>
+                  <SelectItem value="6-months" className="text-sm">
+                    Within 6 months
+                  </SelectItem>
+                  <SelectItem value="planning" className="text-sm">
+                    Just exploring ideas
                   </SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
-            {/* Project Details */}
-            <div className="space-y-2">
-              <Label htmlFor="message" aria-required>
-                Project Details
+            {/* Message */}
+            <div className="space-y-1.5">
+              <Label htmlFor="message" className="text-xs text-gray-700">
+                Tell us more (the fun part!)
               </Label>
               <Textarea
                 id="message"
                 name="message"
                 required
-                rows={4}
-                placeholder="Tell us about your project, specific requirements, and any other details..."
-                className="bg-gray-900/50 border-amber-400/20 text-amber-50 placeholder:text-amber-50/40 focus:border-amber-400 resize-none"
+                rows={3}
+                placeholder="What are you dreaming of? Any special requests? We're all ears..."
+                className="text-sm border-gray-300 focus:border-amber-400 resize-none"
               />
               <ValidationError
                 prefix="Message"
                 field="message"
                 errors={state.errors}
-                className="text-destructive text-sm"
+                className="text-red-500 text-xs"
               />
-              <p className="text-xs text-amber-50/50">
-                Please include room dimensions, existing conditions, and any
-                specific materials you prefer.
-              </p>
             </div>
 
             {/* Form Error */}
             {formError && (
-              <Alert
-                variant="destructive"
-                className="animate-in slide-in-from-top-1"
-              >
+              <Alert variant="destructive" className="py-2 text-sm">
                 <AlertTriangle className="h-4 w-4" />
                 <AlertDescription>{formError}</AlertDescription>
               </Alert>
@@ -378,29 +390,25 @@ export function ContactForm() {
             <Button
               type="submit"
               disabled={state.submitting}
-              size="lg"
-              className="w-full py-6 text-base font-bold bg-gradient-to-r from-amber-400 to-orange-500 text-gray-900 hover:from-amber-500 hover:to-orange-600 hover:shadow-lg hover:shadow-amber-500/25 transition-all duration-300"
+              className="w-full h-10 bg-amber-500 text-gray-900 text-sm font-medium hover:bg-amber-600 hover:scale-105 transition-all rounded-lg"
             >
               {state.submitting ? (
                 <>
-                  <Loader2 className="mr-2 w-5 h-5 animate-spin" />
-                  Sending Message...
+                  <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                  Sending...
                 </>
               ) : (
                 <>
-                  <Send className="mr-2 w-5 h-5" />
-                  Send Message & Get Free Quote
+                  <Send className="mr-2 w-4 h-4" />
+                  Send it our way →
                 </>
               )}
             </Button>
 
-            {/* Privacy Note */}
-            <p className="text-xs text-center text-amber-50/50">
-              By submitting this form, you agree to our{" "}
-              <a href="/privacy" className="text-amber-400 hover:underline">
-                Privacy Policy
-              </a>
-              . We respect your privacy and will not share your information.
+            {/* Fun note */}
+            <p className="text-xs text-center text-gray-400 flex items-center justify-center gap-1">
+              <Sparkles className="w-3 h-3" />
+              No spam. Just good humans.
             </p>
           </form>
         </div>
